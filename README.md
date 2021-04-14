@@ -58,3 +58,22 @@ This should automatically be populated, but this step is included just as a chec
 If you are running the Structures Service locally, and want to point this wrapper to your local instance of the structures service, update this variable to the URL of your local version.
 ## Use
 
+### Health check
+To verify that you've set this tool up correctly, run the following from the command line:
+```shell
+python -m structures -s health
+```
+The response returned should look like this:
+```shell
+{ 'status': 'UP' }
+```
+If it does not, review the steps above to ensure you've setup the tool correctly.
+
+### Upload a new structure
+
+Add the CSV file containing the new structure information to the `uploads/` directory within this project.
+
+Once the file is in this folder, you can run the following command from the terminal:
+```shell
+python -m structures -f <filename.csv>
+```
