@@ -5,3 +5,6 @@ __pycache__/
 uploads/*.csv
 uploads/*.txt
 uploads/*.zip
+reports/*.csv
+reports/*.txt
+reports/*.zip
