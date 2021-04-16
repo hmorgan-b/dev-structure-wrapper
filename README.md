@@ -77,3 +77,8 @@ Once the file is in this folder, you can run the following command from the term
 ```shell
 python -m structures -f <filename.csv>
 ```
+
+If upload is successful, the response should look like this:
+```shell
+{'data': 'OK', 'status': 'success'}
+```
