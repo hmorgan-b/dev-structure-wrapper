@@ -82,3 +82,9 @@ If upload is successful, the response should look like this:
 ```shell
 {'data': 'OK', 'status': 'success'}
 ```
+
+#### Common Upload Errors
+If the file can't be opened, or isn't found within the `uploads/` directory, you will get the following response:
+```
+ERROR: No file named <file.txt> found in uploads folder.
+```
