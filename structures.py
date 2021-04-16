@@ -7,6 +7,7 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
+
 def parse_args(args):
     """
     This method is used to define and parse the command line arguments
@@ -40,7 +41,7 @@ def wrapper(args):
         
         endpoint = '/actuator/health'
         url = os.getenv('URL') + endpoint
-        r = requests.get(url = url)
+        r = requests.get(url=url)
         data = r.json()
         print(data)
 
@@ -57,18 +58,19 @@ def wrapper(args):
             return
 
         else:
-            print(f"Processing file {args['filename']} to upload.")
+            print(f"Uploading file: {args['filename']} to structures service.")
 
             # Build file dict to pass to requests
-            files = {
-                'file': open('uploads/' + args['filename'], 'rb')
-            }
+            try:
+                files = {
+                    'file': open('uploads/' + args['filename'], 'rb')
+                }
+                r = requests.post(url, files=files)
+                data = r.json()
+                print(data)
 
-            r = requests.post(url, files=files)
-            data = r.json()
-            print(data)
-
-
+            except FileNotFoundError:
+                print(f"ERROR: No file named {args['filename']} found in uploads folder.")
 
 
 if __name__ == "__main__":
