@@ -15,8 +15,8 @@ def parse_args(args):
     parser = argparse.ArgumentParser()
     parser.add_argument('-s',
                         '--service',
-                        default='upload',
-                        choices=['upload', 'health'],
+                        default='health',
+                        choices=['health', 'structure', 'map', 'level0'],
                         help=("Specify the service you'd like to perform"
                               "within structures service (endpoint)")
                         )
@@ -44,33 +44,43 @@ def wrapper(args):
         r = requests.get(url=url)
         data = r.json()
         print(data)
+        return
 
-    # Handle file uploads
-    if args['service'] == 'upload':
-
-        # Build url with env var and endpoint
-        endpoint = '/structures'
-        url = os.getenv('URL') + endpoint
-
+    # If service is any other, we need a file from uploads folder
+    else:
         # Ensure a filename is given
         if args['filename'] is None:
             print("Please provide a filename to upload.")
             return
-
         else:
-            print(f"Uploading file: {args['filename']} to structures service.")
+            print(f"Uploading file: {args['filename']} to structures service - {args['service']} file upload.")
 
-            # Build file dict to pass to requests
-            try:
-                files = {
-                    'file': open('uploads/' + args['filename'], 'rb')
-                }
-                r = requests.post(url, files=files)
-                data = r.json()
-                print(data)
+    # Get endpoint to add to URL depending on service request
+    if args['service'] == 'level0':
+        endpoint = '/structures/metadata'
 
-            except FileNotFoundError:
-                print(f"ERROR: No file named {args['filename']} found in uploads folder.")
+    # Handle file uploads for structure files
+    if args['service'] == 'structure':
+        endpoint = '/structures'
+
+    # Handles file uploads for map file uploads
+    if args['service'] == 'map':
+        endpoint = '/structures/mapping'
+
+    # Build final URL with appropriate endpoint
+    url = os.getenv('URL') + endpoint
+
+    # Build file dict to pass to requests
+    try:
+        files = {
+            'file': open('uploads/' + args['filename'], 'rb')
+        }
+        r = requests.post(url, files=files)
+        data = r.json()
+        print(data)
+
+    except FileNotFoundError:
+        print(f"ERROR: No file named {args['filename']} found in uploads folder.")
 
 
 if __name__ == "__main__":
