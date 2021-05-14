@@ -56,16 +56,17 @@ URL=https://api.dev.az.eagleinvsys.com/svc-appstm-structure
 ```
 This should automatically be populated, but this step is included just as a check, and a notice that it can be changed to point to any version of the Structures Service that is running.
 If you are running the Structures Service locally, and want to point this wrapper to your local instance of the structures service, update this variable to the URL of your local version.
+
 ## Use
 
-There are different command line arguments that can be passed to handle different uploads or call different endpoints within the structures service. This tool so far is set up for the following:
+There are different command line arguments that can be passed to handle different uploads or call different endpoints within the Structures Service. This tool so far is set up for the following:
 1. [Perform a health check](#1-perform-a-health-check)
 2. [Upload a new structure](#2-upload-a-new-structure)
 3. [Upload a new map](#3-upload-a-new-map)
 4. [Upload new level 0 structure](#4-upload-new-level-0-structure)
 
 ### 1. Perform a health check
-To verify that you've set this tool up correctly, run the following from the command line:
+To verify that you've set this tool up correctly, run the following from the command line within the directory where you cloned the repository:
 ```shell
 python -m structures -s health
 ```
@@ -110,6 +111,11 @@ Once the file is in this folder, you can run the following command from the term
 
 ```shell
 python -m structures -s level0 -f filename.csv
+```
+
+If upload is successful, the response should look like this:
+```shell
+{'data': 'OK', 'status': 'success'}
 ```
 
 ## Common Errors
