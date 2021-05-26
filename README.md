@@ -62,8 +62,6 @@ If you are running the Structures Service locally, and want to point this wrappe
 There are different command line arguments that can be passed to handle different uploads or call different endpoints within the Structures Service. This tool so far is set up for the following:
 1. [Perform a health check](#1-perform-a-health-check)
 2. [Upload a new structure](#2-upload-a-new-structure)
-3. [Upload a new map](#3-upload-a-new-map)
-4. [Upload new level 0 structure](#4-upload-new-level-0-structure)
 
 ### 1. Perform a health check
 To verify that you've set this tool up correctly, run the following from the command line within the directory where you cloned the repository:
@@ -90,33 +88,6 @@ If upload is successful, the response should look like this:
 {'data': 'OK', 'status': 'success'}
 ```
 
-### 3. Upload a new map
-Add the CSV file containing the new mapping file to the `uploads/` directory within this project.
-
-Once the file is in this folder, you can run the following command from the terminal:
-```shell
-python -m structures -s map -f filename.csv
-```
-
-If upload is successful, the response should look like this:
-```shell
-{'data': 'OK', 'status': 'success'}
-```
-
-### 4. Upload new level 0 structure
-Level 0 structures are treated differently than the rest of the structures uploaded, so it has it's own endpoint. To upload a new level 0 structure,
-add the CSV file containing the level 0 structure information to the `uploads/` directory within this project.
-
-Once the file is in this folder, you can run the following command from the terminal:
-
-```shell
-python -m structures -s level0 -f filename.csv
-```
-
-If upload is successful, the response should look like this:
-```shell
-{'data': 'OK', 'status': 'success'}
-```
 
 ## Common Errors
 If the file can't be opened, or isn't found within the `uploads/` directory, you will get the following response:
