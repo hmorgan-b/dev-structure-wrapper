@@ -16,7 +16,7 @@ def parse_args(args):
     parser.add_argument('-s',
                         '--service',
                         default='health',
-                        choices=['health', 'structure', 'map', 'level0'],
+                        choices=['health', 'structure'],
                         help=("Specify the service you'd like to perform"
                               "within structures service (endpoint)")
                         )
@@ -53,19 +53,11 @@ def wrapper(args):
             print("Please provide a filename to upload.")
             return
         else:
-            print(f"Uploading file: {args['filename']} to structures service - {args['service']} file upload.")
+            print(f"Uploading file: {args['filename']} to structures service.")
 
-    # Get endpoint to add to URL depending on service request
-    if args['service'] == 'level0':
-        endpoint = '/structures/metadata'
-
-    # Handle file uploads for structure files
+    # Get endpoint to add to URL depending on service request (only 1 upload endpoint now)
     if args['service'] == 'structure':
-        endpoint = '/structures'
-
-    # Handles file uploads for map file uploads
-    if args['service'] == 'map':
-        endpoint = '/structures/mapping'
+        endpoint = '/load'
 
     # Build final URL with appropriate endpoint
     url = os.getenv('URL') + endpoint
