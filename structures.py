@@ -16,14 +16,22 @@ def parse_args(args):
     parser.add_argument('-s',
                         '--service',
                         default='health',
-                        choices=['health', 'structure'],
+                        choices=['health', 'upload'],
                         help=("Specify the service you'd like to perform"
                               "within structures service (endpoint)")
                         )
-    parser.add_argument('-f',
-                        '--filename',
+    parser.add_argument('-v',
+                        '--vertices',
                         default=None,
-                        help=("Specify the structures csv file"
+                        help=("Specify the name of the vertices csv file"
+                              "to be uploaded to structures service."
+                              "Requires a companion arcs file of the same source/as of date/file date"
+                              "to be in the uploads directory.")
+                        )
+    parser.add_argument('-a',
+                        '--arcs',
+                        default=None,
+                        help=("Specify the name of the arcs csv file"
                               "to be uploaded to structures service.")
                         )
     args_, unknown = parser.parse_known_args(args)
@@ -49,8 +57,8 @@ def wrapper(args):
     # If service is any other, we need a file from uploads folder
     else:
         # Ensure a filename is given
-        if args['filename'] is None:
-            print("Please provide a filename to upload.")
+        if args['vertices'] is None or args['arcs'] is None:
+            print("Please provide vertices or arcs filename to upload.")
             return
         else:
             print(f"Uploading file: {args['filename']} to structures service.")
